@@ -1,0 +1,27 @@
+version: '3.5.1'
+
+services:  
+    mysql:
+        image: mysql:5.7
+        container_name: sql
+        volumes:
+            - ./DB:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        hostname: R8WA
+        restart: always
+        command: --lower_case_table_names=1
+        environment:
+            MYSQL_DATABASE: 'database'
+            MYSQL_USER: 'admin'
+            MYSQL_PASSWORD: 'admin'
+            MYSQL_ROOT_PASSWORD: 'admin'
+    server:
+        build:
+            context: .
+            dockerfile: dockerfile
+            restart: always
+            ports: 
+                - 8080:8080
+            volumes: 
+                - ./Project:/home
